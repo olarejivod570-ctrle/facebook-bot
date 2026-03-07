@@ -25,7 +25,7 @@ def webhook():
         challenge = request.args.get("hub.challenge")
         if token == VERIFY_TOKEN:
             return challenge
-        return "Verification failed"
+        return "FacebookBotFidel"
 
     if request.method == "POST":
         data = request.json
