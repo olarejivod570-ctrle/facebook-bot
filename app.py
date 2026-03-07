@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-PAGE_ACCESS_TOKEN = "PUT_YOUR_PAGE_TOKEN_HERE"
+PAGE_ACCESS_TOKEN = "EAAmM9UaCLbYBQyWrZB2XMtFFA4XIrQbh3L7XKvuLkqErCwgByZCdosxZBwYzoJ0H1M5TnZBzlxdFHlC8YYQCFr3aMKye5dL3LbgEV86zlRIgfttUEgFIXiZCTeuy2xIj6bZCvfsk7B6YX4eoVkgZCZA4QovZADK4ahxC1W3qc6PjCS5e4udOqUZCb16RNxDcj2tyWT3NsdmwFzDwZDZD"
 VERIFY_TOKEN = "mytoken123"
 
 def send_message(psid, message):
