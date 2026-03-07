@@ -16,7 +16,7 @@ def send_message(psid, message):
 
 @app.route("/")
 def home():
-    return "Facebook Bot is Running"
+    return "Facebook ♥"
 
 @app.route("/webhook", methods=["GET", "POST"])
 def webhook():
