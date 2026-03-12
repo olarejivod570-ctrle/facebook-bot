@@ -33,7 +33,7 @@ PHONE_DB = {
                 "sniper": ["داشا", "لورا", "دي بي", "انتونيو"]
             },
             "graphics": "🟢 سلسة + إطار عالي",
-            "note": "💪 ممتاز للأداء المتوسط"
+            "note": "💎 ممتاز للأداء المتوسط"
         }
     },
     "samsung": {
@@ -57,7 +57,7 @@ PHONE_DB = {
                 "sniper": ["داشا", "لورا", "دي بي", "انتونيو"]
             },
             "graphics": "🔵 ناعم + إطار عالي جداً",
-            "note": "👑 مناسب للمحترفين"
+            "note": "🏆 مناسب للمحترفين"
         }
     },
     "xiaomi": {
@@ -129,7 +129,7 @@ PHONE_DB = {
                 "sniper": ["داشا", "لورا", "دي بي", "انتونيو"]
             },
             "graphics": "🟢 سلسة + إطار عالي",
-            "note": "🔥 أداء جيد"
+            "note": "📥 أداء جيد"
         }
     },
     "tecno": {
@@ -208,7 +208,7 @@ def send_quick_replies(psid, text, replies):
     url = "https://graph.facebook.com/v18.0/me/messages"
     params = {"access_token": PAGE_ACCESS_TOKEN}
     headers = {"Content-Type": "application/json"}
-    
+
     quick_replies_list = []
     for reply_title, reply_payload in replies:
         quick_reply = {
@@ -217,7 +217,7 @@ def send_quick_replies(psid, text, replies):
             "payload": reply_payload
         }
         quick_replies_list.append(quick_reply)
-    
+
     data = {
         "recipient": {"id": psid},
         "message": {
@@ -225,7 +225,7 @@ def send_quick_replies(psid, text, replies):
             "quick_replies": quick_replies_list
         }
     }
-    
+
     try:
         response = requests.post(url, params=params, headers=headers, json=data)
         print(f"📤 إرسال خانات إلى {psid}: {response.status_code}")
@@ -239,7 +239,7 @@ def send_buttons(psid, text, buttons):
     url = "https://graph.facebook.com/v18.0/me/messages"
     params = {"access_token": PAGE_ACCESS_TOKEN}
     headers = {"Content-Type": "application/json"}
-    
+
     button_list = []
     for btn_title, btn_payload in buttons:
         button_list.append({
@@ -247,7 +247,7 @@ def send_buttons(psid, text, buttons):
             "title": btn_title,
             "payload": btn_payload
         })
-    
+
     data = {
         "recipient": {"id": psid},
         "message": {
@@ -261,7 +261,7 @@ def send_buttons(psid, text, buttons):
             }
         }
     }
-    
+
     try:
         response = requests.post(url, params=params, headers=headers, json=data)
         print(f"📤 إرسال أزرار إلى {psid}: {response.status_code}")
@@ -281,40 +281,40 @@ def search_phone(query):
     """البحث عن هاتف بالاسم"""
     results = []
     query = query.lower()
-    
+
     for brand, models in PHONE_DB.items():
         for model, data in models.items():
             if query in data['name'].lower() or query in model.lower():
                 results.append((brand, model, data))
-    
+
     return results
 
 def format_sensitivity(phone_data):
     """تنسيق رسالة الحساسية"""
     sens = phone_data['sensitivity']
-    
-    msg = f"""🔰 **{phone_data['name']}**
 
-📊 **معلومات الجهاز:**
-• DPI: `{phone_data['dpi']}`
+    msg = f"""📰 {phone_data['name']}
+
+📹 معلومات الجهاز:
+• DPI: {phone_data['dpi']}
 • الجرافيكس: {phone_data['graphics']}
 
-⚡ **إعدادات الحساسية:**
+⚡ إعدادات الحساسية:
 ━━━━━━━━━━━━━━━━
-🎮 عام: `{sens['general']}`
-🎯 ريد دوت: `{sens['red_dot']}`
-🔭 سكوب 2x: `{sens['2x_scope']}`
-🔭 سكوب 3x: `{sens.get('3x_scope', '130')}`
-🔭 سكوب 4x: `{sens['4x_scope']}`
-🎯 قناص: `{sens['sniper']}`
-👀 نظر حر: `{sens.get('free_look', '85')}`
-🎯 دقة تصويب: `{sens.get('aim_precision', '90')}`
+🎮 عام: {sens['general']}
+🎯 ريد دوت: {sens['red_dot']}
+📭 سكوب 2x: {sens['2x_scope']}
+📭 سكوب 3x: {sens.get('3x_scope', '130')}
+📭 سكوب 4x: {sens['4x_scope']}
+🎯 قناص: {sens['sniper']}
+👀 نظر حر: {sens.get('free_look', '85')}
+🎯 دقة تصويب: {sens.get('aim_precision', '90')}
 ━━━━━━━━━━━━━━━━
 
-✅ **طريقة التطبيق:**
+✅ طريقة التطبيق:
 1️⃣ اذهب للإعدادات ⚙️
 2️⃣ اختر الحساسية 🎯
-3️⃣ ضبط القيم يدوياً ✏️
+3️⃣ ضبط القيم يدوياً ✈️
 4️⃣ حفظ التغييرات 💾
 """
     return msg
@@ -322,22 +322,22 @@ def format_sensitivity(phone_data):
 def format_chars(phone_data, style):
     """تنسيق رسالة الشخصيات"""
     chars = phone_data['recommended_chars'][style]
-    
+
     style_names = {
         'aggressive': '⚔️ هجومي',
         'support': '🛡️ دعم',
         'sniper': '🎯 قناص'
     }
-    
-    msg = f"""🔰 **{phone_data['name']}**
+
+    msg = f"""📰 {phone_data['name']}
 🎮 أسلوب اللعب: {style_names[style]}
 
-🌟 **الشخصيات المقترحة:**
+🌟 الشخصيات المقترحة:
 ━━━━━━━━━━━━━━━━
-🎭 **المهارة النشطة:**
+🥇 المهارة النشطة:
 • {chars[0]}
 
-🃏 **المهارات السلبية:**
+🃈 المهارات السلبية:
 • {chars[1]}
 • {chars[2]}
 • {chars[3]}
@@ -348,7 +348,7 @@ def format_chars(phone_data, style):
 # ================ قوائم الخانات ================
 def show_main_menu(psid):
     """عرض القائمة الرئيسية بالخانات"""
-    text = "🏠 **القائمة الرئيسية**\n\nاختر من الخيارات أدناه:"
+    text = "🏠 القائمة الرئيسية\n\naختر من الخيارات أدناه:"
     replies = [
         ("🔍 بحث", "SEARCH"),
         ("📱 هواتفي", "MY_PHONES"),
@@ -359,10 +359,10 @@ def show_main_menu(psid):
 
 def show_phone_options(psid, brand, model, phone_name):
     """عرض خيارات الهاتف بالخانات"""
-    text = f"📱 **{phone_name}**\n\nماذا تريد؟"
+    text = f"📱 {phone_name}\n\nماذا تريد؟"
     replies = [
         ("🎯 الحساسية", f"SENS_{brand}_{model}"),
-        ("👥 الشخصيات", f"CHARS_{brand}_{model}"),
+        ("🥊 الشخصيات", f"CHARS_{brand}_{model}"),
         ("⚙️ إعدادات", f"SETTINGS_{brand}_{model}"),
         ("🔙 رجوع", "HOME")
     ]
@@ -370,7 +370,7 @@ def show_phone_options(psid, brand, model, phone_name):
 
 def show_style_options(psid, brand, model):
     """عرض خيارات أسلوب اللعب بالخانات"""
-    text = "👥 **اختر أسلوب لعبك:**"
+    text = "🥊 اختر أسلوب لعبك:"
     replies = [
         ("⚔️ هجومي", f"STYLE_aggressive_{brand}_{model}"),
         ("🛡️ دعم", f"STYLE_support_{brand}_{model}"),
@@ -380,33 +380,62 @@ def show_style_options(psid, brand, model):
     send_quick_replies(psid, text, replies)
 
 # ================ معالجة الرسائل النصية ================
+
+# ✅ قاموس التحويل: نص الزر → payload
+# هذا يحل مشكلة عدم التعرف على الأزرار عند إرسالها كنص
+TEXT_TO_PAYLOAD = {
+    "🏠 رئيسية": "HOME",
+    "🔍 بحث": "SEARCH",
+    "📱 هواتفي": "MY_PHONES",
+    "🔥 الأكثر طلباً": "POPULAR",
+    "❓ مساعدة": "HELP",
+    "📱 الماركات": "BRANDS",
+    "🔙 رجوع": "HOME",
+    "🎯 الحساسية": "SEARCH",
+    "🥊 الشخصيات": "SEARCH",
+    "⚙️ إعدادات": "SEARCH",
+}
+
 def handle_message(sender_id, message_text):
     """معالجة الرسائل النصية"""
-    
+
     print(f"📩 رسالة من {sender_id}: {message_text}")
-    
+
+    # ✅ الإصلاح الأول: تحقق إذا كان النص يطابق نص زر معروف
+    # هذا يحل مشكلة "❌ لا توجد نتائج لـ '🏠 رئيسية'"
+    stripped = message_text.strip()
+    if stripped in TEXT_TO_PAYLOAD:
+        handle_postback(sender_id, TEXT_TO_PAYLOAD[stripped])
+        return
+
+    # ✅ الإصلاح الثاني: استخدم strip() فقط للعربية، وlower() للإنجليزية فقط
+    message_lower = message_text.lower().strip()
+
     # كلمات البداية
-    if message_text in ["start", "ابدأ", "hi", "hello", "سلام", "السلام عليكم", "بداية", "main", "القائمة"]:
-        welcome_msg = """👋 **مرحباً بك في بوت حساسيات فري فاير** 🔫
+    start_words = ["start", "ابدأ", "hi", "hello", "سلام", "السلام عليكم",
+                   "بداية", "main", "القائمة", "مرحبا", "هاي"]
+    if message_lower in start_words:
+        welcome_msg = """👋 مرحباً بك في بوت حساسيات فري فاير 🎮
 
 أنا هنا لمساعدتك في الحصول على أفضل إعدادات حساسية لهاتفك!
 
-🔍 **للبحث عن هاتفك:** أرسل اسم الجهاز
+🔍 للبحث عن هاتفك: أرسل اسم الجهاز
 مثال: `itel a70` أو `s21`"""
-        
+
         send_message(sender_id, welcome_msg)
         show_main_menu(sender_id)
         return
-    
-    # كلمات المساعدة
-    if message_text in ["مساعدة", "help", "المساعدة", "?"]:
-        help_msg = """❓ **مساعدة البوت:**
 
-📱 **للبحث عن هاتف:**
+    # كلمات المساعدة
+    help_words = ["مساعدة", "help", "المساعدة", "?", "؟"]
+    if message_lower in help_words:
+        help_msg = """❓ مساعدة البوت:
+
+🔍 للبحث عن هاتف:
 أرسل اسم الهاتف في المحادثة
 مثال: "s21" أو "itel a70"
 
-📱 **الهواتف المتوفرة:**
+📱 الهواتف المتوفرة:
 • Itel A70
 • Samsung S21
 • Poco X3
@@ -414,34 +443,35 @@ def handle_message(sender_id, message_text):
 • Infinix Hot 40
 • Tecno Spark 20
 • Oppo A57"""
-        
+
         replies = [("🏠 رئيسية", "HOME"), ("🔍 بحث", "SEARCH")]
         send_message(sender_id, help_msg)
         send_quick_replies(sender_id, "اختر:", replies)
         return
-    
+
     # كلمات الماركات
-    if message_text in ["ماركات", "brands", "الماركات"]:
+    brand_words = ["ماركات", "brands", "الماركات"]
+    if message_lower in brand_words:
         show_brands_menu(sender_id)
         return
-    
+
     # كلمات الأكثر طلباً
-    if message_text in ["الأكثر طلباً", "popular", "مشهورة", " hottest"]:
+    popular_words = ["الأكثر طلباً", "popular", "مشهورة", "hottest", "الاكثر طلبا"]
+    if message_lower in popular_words or stripped in popular_words:
         show_popular_phones(sender_id)
         return
-    
+
     # البحث عن هاتف
     results = search_phone(message_text)
-    
+
     if results:
         if len(results) == 1:
             brand, model, phone_data = results[0]
             send_message(sender_id, f"✅ تم العثور على {phone_data['name']}")
             show_phone_options(sender_id, brand, model, phone_data['name'])
-            # حفظ آخر هاتف
             user_sessions[sender_id] = {"last_brand": brand, "last_model": model}
         else:
-            msg = f"🔍 **نتائج البحث عن '{message_text}':**\n\nاختر هاتفك:"
+            msg = f"🔍 نتائج البحث عن '{message_text}':\n\nاختر هاتفك:"
             replies = []
             for brand, model, phone_data in results[:8]:
                 short_name = phone_data['name'].replace("📱 ", "")[:15]
@@ -451,17 +481,21 @@ def handle_message(sender_id, message_text):
     else:
         not_found_msg = f"""❌ لا توجد نتائج لـ '{message_text}'
 
-💡 **جرب:**
+💡 جرب:
 • اسم الموديل فقط (a70)
 • أشهر الهواتف من القائمة"""
-        
+
         send_message(sender_id, not_found_msg)
-        replies = [("🔥 الأكثر طلباً", "POPULAR"), ("📱 الماركات", "BRANDS"), ("🏠 رئيسية", "HOME")]
+        replies = [
+            ("🔥 الأكثر طلباً", "POPULAR"),
+            ("📱 الماركات", "BRANDS"),
+            ("🏠 رئيسية", "HOME")
+        ]
         send_quick_replies(sender_id, "اختر:", replies)
 
 def show_brands_menu(psid):
     """عرض قائمة الماركات"""
-    msg = "📱 **اختر الماركة:**"
+    msg = "📱 اختر الماركة:"
     replies = [
         ("🇰🇷 Samsung", "BRAND_samsung"),
         ("🇨🇳 Xiaomi", "BRAND_xiaomi"),
@@ -476,7 +510,7 @@ def show_brands_menu(psid):
 
 def show_popular_phones(psid):
     """عرض الهواتف الأكثر طلباً"""
-    msg = "🔥 **الهواتف الأكثر طلباً:**"
+    msg = "🔥 الهواتف الأكثر طلباً:"
     replies = [
         ("Itel A70", "PHONE_itel_a70"),
         ("Samsung S21", "PHONE_samsung_s21"),
@@ -490,27 +524,27 @@ def show_popular_phones(psid):
 # ================ معالجة Postback ================
 def handle_postback(sender_id, payload):
     """معالجة الضغط على الأزرار والخانات"""
-    
-    print(f"🔘 Postback من {sender_id}: {payload}")
-    
+
+    print(f"📲 Postback من {sender_id}: {payload}")
+
     # ===== القائمة الرئيسية =====
     if payload == "HOME":
         show_main_menu(sender_id)
-    
+
     elif payload == "SEARCH":
-        msg = "🔍 **أرسل اسم الهاتف الذي تبحث عنه**\nمثال: itel a70 أو s21"
+        msg = "🔍 أرسل اسم الهاتف الذي تبحث عنه\nمثال: itel a70 أو s21"
         replies = [("🏠 رئيسية", "HOME"), ("🔥 الأكثر طلباً", "POPULAR")]
         send_message(sender_id, msg)
         send_quick_replies(sender_id, "اختر:", replies)
-    
+
     elif payload == "POPULAR":
         show_popular_phones(sender_id)
-    
+
     elif payload == "BRANDS":
         show_brands_menu(sender_id)
-    
+
     elif payload == "HELP":
-        help_msg = """❓ **مساعدة سريعة:**
+        help_msg = """❓ مساعدة سريعة:
 
 🔍 للبحث: أرسل اسم الهاتف
 📱 للماركات: اختر "الماركات"
@@ -520,7 +554,7 @@ def handle_postback(sender_id, payload):
         send_message(sender_id, help_msg)
         replies = [("🏠 رئيسية", "HOME"), ("📱 ماركات", "BRANDS")]
         send_quick_replies(sender_id, "اختر:", replies)
-    
+
     elif payload == "MY_PHONES":
         if sender_id in user_sessions and "last_brand" in user_sessions[sender_id]:
             brand = user_sessions[sender_id]["last_brand"]
@@ -536,7 +570,7 @@ def handle_postback(sender_id, payload):
             send_message(sender_id, "📱 لم تبحث عن أي هاتف بعد")
             replies = [("🔍 بحث الآن", "SEARCH"), ("🏠 رئيسية", "HOME")]
             send_quick_replies(sender_id, "اختر:", replies)
-    
+
     # ===== عرض ماركة معينة =====
     elif payload.startswith("BRAND_"):
         brand = payload.replace("BRAND_", "")
@@ -551,14 +585,14 @@ def handle_postback(sender_id, payload):
                 "oppo": "🇨🇳 Oppo"
             }
             brand_name = brand_names.get(brand, brand.capitalize())
-            msg = f"📱 **{brand_name} - الهواتف:**"
+            msg = f"📱 {brand_name} - الهواتف:"
             replies = []
             for model, data in PHONE_DB[brand].items():
                 short_name = data['name'].replace("📱 ", "")[:12]
                 replies.append((short_name, f"PHONE_{brand}_{model}"))
             replies.append(("🔙 رجوع", "BRANDS"))
             send_quick_replies(sender_id, msg, replies[:10])
-    
+
     # ===== عرض هاتف معين =====
     elif payload.startswith("PHONE_"):
         parts = payload.replace("PHONE_", "").split("_", 1)
@@ -568,7 +602,7 @@ def handle_postback(sender_id, payload):
             if phone_data:
                 user_sessions[sender_id] = {"last_brand": brand, "last_model": model}
                 show_phone_options(sender_id, brand, model, phone_data['name'])
-    
+
     # ===== عرض الحساسية =====
     elif payload.startswith("SENS_"):
         parts = payload.replace("SENS_", "").split("_", 1)
@@ -578,23 +612,22 @@ def handle_postback(sender_id, payload):
             if phone_data:
                 msg = format_sensitivity(phone_data)
                 send_message(sender_id, msg)
-                
-                # عرض خيارات بعد الحساسية
-                text = "✅ **تم عرض الحساسية**\n\nماذا تريد الآن؟"
+
+                text = "✅ تم عرض الحساسية\n\nماذا تريد الآن؟"
                 replies = [
-                    ("👥 شخصيات", f"CHARS_{brand}_{model}"),
-                    ("🔄 هاتف آخر", "SEARCH"),
+                    ("🥊 شخصيات", f"CHARS_{brand}_{model}"),
+                    ("🔍 هاتف آخر", "SEARCH"),
                     ("🏠 رئيسية", "HOME")
                 ]
                 send_quick_replies(sender_id, text, replies)
-    
+
     # ===== عرض خيارات الشخصيات =====
     elif payload.startswith("CHARS_"):
         parts = payload.replace("CHARS_", "").split("_", 1)
         if len(parts) == 2:
             brand, model = parts
             show_style_options(sender_id, brand, model)
-    
+
     # ===== عرض أسلوب معين =====
     elif payload.startswith("STYLE_"):
         parts = payload.replace("STYLE_", "").split("_", 2)
@@ -604,16 +637,15 @@ def handle_postback(sender_id, payload):
             if phone_data:
                 msg = format_chars(phone_data, style)
                 send_message(sender_id, msg)
-                
-                # عرض خيارات بعد الشخصيات
-                text = "👥 **تم عرض الشخصيات**\n\nماذا تريد الآن؟"
+
+                text = "🥊 تم عرض الشخصيات\n\nماذا تريد الآن؟"
                 replies = [
                     ("🎯 الحساسية", f"SENS_{brand}_{model}"),
                     ("🔄 أسلوب آخر", f"CHARS_{brand}_{model}"),
                     ("🏠 رئيسية", "HOME")
                 ]
                 send_quick_replies(sender_id, text, replies)
-    
+
     # ===== عرض الإعدادات =====
     elif payload.startswith("SETTINGS_"):
         parts = payload.replace("SETTINGS_", "").split("_", 1)
@@ -621,30 +653,30 @@ def handle_postback(sender_id, payload):
             brand, model = parts
             phone_data = get_phone_by_brand_model(brand, model)
             if phone_data:
-                settings_msg = f"""🔰 **{phone_data['name']}** - إعدادات متقدمة
+                settings_msg = f"""📰 {phone_data['name']} - إعدادات متقدمة
 
-⚙️ **معلومات الجهاز:**
-• DPI: `{phone_data['dpi']}`
+⚙️ معلومات الجهاز:
+• DPI: {phone_data['dpi']}
 • الجرافيكس: {phone_data['graphics']}
 
-🎮 **إعدادات مقترحة:**
+🎮 إعدادات مقترحة:
 • جودة الرسوم: ناعم (Smooth)
 • معدل الإطارات: عالي (High)
 • الظل: مفعل ✅
 • تأثيرات: متوسطة
 
-💡 **نصائح لتحسين الأداء:**
+💡 نصائح لتحسين الأداء:
 1️⃣ أغلق التطبيقات الخلفية
 2️⃣ فعل وضع الألعاب
 3️⃣ خفض سطوع الشاشة"""
-                
+
                 send_message(sender_id, settings_msg)
                 replies = [
                     ("🎯 الحساسية", f"SENS_{brand}_{model}"),
-                    ("👥 شخصيات", f"CHARS_{brand}_{model}"),
+                    ("🥊 شخصيات", f"CHARS_{brand}_{model}"),
                     ("🏠 رئيسية", "HOME")
                 ]
-                send_quick_replies(sender_id, "⚙️ **اختر:**", replies)
+                send_quick_replies(sender_id, "⚙️ اختر:", replies)
 
 # ================ Routes ================
 @app.route("/")
@@ -665,27 +697,30 @@ def webhook():
     if request.method == "POST":
         data = request.json
         print(f"📨 Webhook received: {data}")
-        
+
         if "entry" in data:
             for entry in data["entry"]:
                 for messaging in entry.get("messaging", []):
                     sender_id = messaging["sender"]["id"]
-                    
-                    # معالجة الرسائل النصية
-                    if "message" in messaging and "text" in messaging["message"]:
-                        text = messaging["message"]["text"].strip().lower()
-                        handle_message(sender_id, text)
-                    
-                    # معالجة postback (الأزرار)
-                    elif "postback" in messaging:
+
+                    # ✅ الترتيب الصحيح: postback أولاً، ثم quick_reply، ثم النص العادي
+                    # هذا يضمن أن الأزرار تُعالج دائماً بشكل صحيح
+
+                    # 1. معالجة postback (الأزرار الكبيرة)
+                    if "postback" in messaging:
                         payload = messaging["postback"]["payload"]
                         handle_postback(sender_id, payload)
-                    
-                    # معالجة quick reply
+
+                    # 2. معالجة quick_reply (الخانات) - يجب قبل message العادية
                     elif "message" in messaging and "quick_reply" in messaging["message"]:
                         payload = messaging["message"]["quick_reply"]["payload"]
                         handle_postback(sender_id, payload)
-        
+
+                    # 3. معالجة الرسائل النصية العادية فقط (بدون quick_reply)
+                    elif "message" in messaging and "text" in messaging["message"]:
+                        text = messaging["message"]["text"].strip()
+                        handle_message(sender_id, text)
+
         return "OK", 200
 
 # ================ تشغيل التطبيق ================
